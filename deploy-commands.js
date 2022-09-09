@@ -17,3 +17,26 @@ for (const file of commandFiles) {
 }
 
 const rest = new REST({ version: '10' }).setToken(token);
+
+(async () => {
+  guildIds.map(async (guildId) => {
+    try {
+      await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
+        body: commands,
+      });
+      console.log(`${guildId} 서버 성공`);
+    } catch (error) {
+      console.log('error');
+    }
+  });
+
+  //글로벌 명령어
+  //   try {
+  //     await rest.put(Routes.applicationCommands(clientId), {
+  //       body: commands,
+  //     });
+  //     console.log('글로벌 명령어 등록 성공');
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+})();
